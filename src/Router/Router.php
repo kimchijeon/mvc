@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Mos\Router;
 
+use Kimchi\Dice\Game;
+
 use function Mos\Functions\{
     destroySession,
     redirectTo,
@@ -56,8 +58,52 @@ class Router
             $body = renderView("layout/page.php", $data);
             sendResponse($body);
             return;
-        }
+        } else if ($method === "GET" && $path === "/dice") {
+            $callable = new Game();
+            $callable->prepareGame();
 
+            return;
+        } else if ($method === "POST" && $path === "/game21-process") {
+            $callable = new Game();
+            $callable->setDiceNumber();
+
+            return;
+        } else if ($method === "GET" && $path === "/game21") {
+            $callable = new Game();
+            $callable->showResults();
+
+            return;
+        } else if ($method === "POST" && $path === "/game21-play") {
+            $callable = new Game();
+            $callable->playGame();
+
+            return;
+        } else if ($method === "GET" && $path === "/game21/restart") {
+            destroySession();
+            redirectTo(url("/dice"));
+
+            return;
+        } else if ($method === "POST" && $path === "/bot-game21-process") {
+            $callable = new Game();
+            $callable->savePlayerTotal();
+
+            return;
+        } else if ($method === "GET" && $path === "/bot-game21") {
+            $callable = new Game();
+            $callable->prepareBotGame();
+
+            return;
+        } else if ($method === "POST" && $path === "/bot-game21-play") {
+            $callable = new Game();
+            $callable->botRoll();
+
+            return;
+        } else if ($method === "GET" && $path === "/game21-results") {
+            $callable = new Game();
+            $callable->showFinalResults();
+
+            return;
+        }
         $data = [
             "header" => "404",
             "message" => "The page you are requesting is not here. You may also checkout the HTTP response code, it should be 404.",
