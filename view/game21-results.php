@@ -25,7 +25,7 @@ $message = $message ?? null;
 <p>You have won <?= $getWins ?> times.</p>
 <p>Bot has won <?= $getLosses ?> times.</p>
 <p>
-    <button><a href="<?= url("/dice") ?>">Play another round</a></button>
+    <button><a href="<?= url("/game21") ?>">Play another round</a></button>
 </p>
 <p>
     <button><a href="<?= url("/game21/restart") ?>">Reset scoreboard</a></button>

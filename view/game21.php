@@ -27,16 +27,16 @@ $message = $message ?? null;
 
 <p><?= $notice ?></p>
 <p>
-    <form method="post" action="<?= url("/game21-play") ?>">
+    <form method="post" action="<?= url("/game21/play") ?>">
         <input type="submit" name="submit" value="Roll dice">
     </form>
 </p>
 <p>
-    <form method="post" action="<?= url("/bot-game21-process") ?>">
+    <form method="post" action="<?= url("/game21/bot/process") ?>">
         <input type="hidden" name="playerdice" value="<?= $sumDice ?>">
         <input type="submit" name="submit" value="Stop rolling">
     </form>
 </p>
 <p>
-    <button><a href="<?= url("/dice") ?>">Restart</a></button>
+    <button><a href="<?= url("/game21") ?>">Restart</a></button>
 </p>

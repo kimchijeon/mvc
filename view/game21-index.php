@@ -15,7 +15,7 @@ $message = $message ?? null;
 
 <p><?= $message ?></p>
 
-<form method="post" action="<?= url("/game21-process") ?>">
+<form method="post" action="<?= url("/game21/process") ?>">
     <label>How many dice do you want to play with?</label>
     <select required name="number">
         <option value="0">1</option>

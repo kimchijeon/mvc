@@ -9,8 +9,9 @@ namespace Kimchi\Dice;
  */
 class Dicehand
 {
+    use SaveDiceTrait;
+
     private array $dices;
-    private int $sum;
     private int $number;
 
     /**
@@ -25,16 +26,6 @@ class Dicehand
         $this->number = $number;
     }
 
-    /**
-     * Get the number of dice.
-     *
-     * @return int as the number of the dice.
-     */
-    public function getNumber()
-    {
-        return $this->number;
-    }
-
     public function prepare()
     {
         for ($i = 0; $i <= $this->number; $i++) {
@@ -44,10 +35,8 @@ class Dicehand
 
     public function roll(): void
     {
-        $this->sum = 0; //Save the sum of the dice hand
-
         for ($i = 0; $i <= $this->number; $i++) {
-            $this->sum += $this->dices[$i]->roll(); //Throw the dices and calculate the sum
+            $this->dices[$i]->roll();
         }
     }
 

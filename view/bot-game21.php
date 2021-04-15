@@ -18,7 +18,7 @@ $message = $message ?? null;
 <p>Your total: <?= $getPlayerTotal ?></p>
 
 <p>
-    <form method="post" action="<?= url("/bot-game21-play") ?>">
+    <form method="post" action="<?= url("/game21/bot/play") ?>">
         <input type="submit" name="submit" value="Let bot play">
     </form>
 </p>

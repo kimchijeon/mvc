@@ -32,10 +32,8 @@ class Game
         }
 
         if ($_SESSION["number"] == null) {
-            redirectTo(url("/dice"));
+            redirectTo(url("/game21"));
         }
-
-        redirectTo(url("/game21"));
     }
 
     public function playGame(): void
@@ -45,7 +43,7 @@ class Game
         if (isset($_SESSION["number"])) {
             $number = $_SESSION["number"];
         } else {
-            redirectTo(url("/dice"));
+            redirectTo(url("/game21"));
         }
 
         if (isset($number)) {
@@ -57,16 +55,18 @@ class Game
 
         $_SESSION["dicehand"] = $diceHand->getLastRoll();
 
-        $_SESSION["dicetotal"] = array_sum($_SESSION["dicehand"]) + ($_SESSION["dicetotal"]);
-
-        redirectTo(url("/game21"));
+        if (!isset($_SESSION["dicetotal"])) {
+            $_SESSION["dicetotal"] = array_sum($_SESSION["dicehand"]);
+        } else {
+            $_SESSION["dicetotal"] = array_sum($_SESSION["dicehand"]) + ($_SESSION["dicetotal"]);
+        }
     }
 
-    public function showResults(): void
+    public function showResults(): array
     {
         $data = [
             "header" => "Let's play 21",
-            "message" => "If you get 21 you win! If you get more than 21 you lose.",
+            "message" => "If you get 21 you win! If you get more than 21 you lose."
         ];
 
         if (isset($_SESSION["dicetotal"])) {
@@ -101,8 +101,7 @@ class Game
             $data["lastRoll"] = $noRoll;
         }
 
-        $body = renderView("layout/game21.php", $data);
-        sendResponse($body);
+        return $data;
     }
 
     public function savePlayerTotal(): void
@@ -112,13 +111,11 @@ class Game
         }
 
         if ($_SESSION["playertotal"] == null) {
-            redirectTo(url("/game21"));
+            redirectTo(url("/game21/game"));
         }
-
-        redirectTo(url("/bot-game21"));
     }
 
-    public function prepareBotGame(): void
+    public function prepareBotGame(): array
     {
         $data = [
             "header" => "Let's play 21",
@@ -132,11 +129,10 @@ class Game
         if (isset($playerTotal)) {
             $data["getPlayerTotal"] = $playerTotal;
         } else {
-            redirectTo(url("/game21"));
+            redirectTo(url("/game21/game"));
         }
 
-        $body = renderView("layout/bot-game21.php", $data);
-        sendResponse($body);
+        return $data;
     }
 
     public function botRoll(): void
@@ -148,20 +144,20 @@ class Game
         }
 
         //Bot will roll until it has a higher number than player.
-        if (isset($playerTotal)) {
-            while ($_SESSION["bottotal"] < $playerTotal) {
-                $botHand->roll();
-
-                $_SESSION["bothand"] = $botHand->getLastRoll();
-
-                $_SESSION["bottotal"] = $_SESSION["bothand"] + ($_SESSION["bottotal"]);
-            }
+        if (isset($playerTotal) && !isset($_SESSION["bottotal"])) {
+            $_SESSION["bottotal"] = $botHand->roll();
         }
 
-        redirectTo(url("/game21-results"));
+        while (isset($playerTotal) && $_SESSION["bottotal"] < $playerTotal) {
+            $botHand->roll();
+
+            $_SESSION["bothand"] = $botHand->getLastRoll();
+
+            $_SESSION["bottotal"] = $_SESSION["bothand"] + ($_SESSION["bottotal"]);
+        }
     }
 
-    public function showFinalResults(): void
+    public function showFinalResults(): array
     {
         $data = [
             "header" => "Let's play 21",
@@ -224,17 +220,11 @@ class Game
             $data["getLosses"] = 0;
         }
 
-        $body = renderView("layout/game21-results.php", $data);
-        sendResponse($body);
+        return $data;
     }
 
     public function prepareGame(): void
     {
-        $data = [
-            "header" => "Let's play 21",
-            "message" => "Can you beat me in a game of 21?",
-        ];
-
         if (isset($_SESSION["number"])) {
             $_SESSION["number"] = null;
         }
@@ -258,8 +248,5 @@ class Game
         if (isset($_SESSION["bottotal"])) {
             $_SESSION["bottotal"] = null;
         }
-
-        $body = renderView("layout/dice.php", $data);
-        sendResponse($body);
     }
 }
