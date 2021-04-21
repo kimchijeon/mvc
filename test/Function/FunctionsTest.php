@@ -20,8 +20,6 @@ class FunctionsTest extends TestCase
         $this->assertEmpty($res);
     }
 
-
-
     /**
      * Test the function renderView().
      */
@@ -30,19 +28,6 @@ class FunctionsTest extends TestCase
         $res = renderView("standard.php");
         $this->assertIsString($res);
     }
-
-
-
-    /**
-     * Test the function renderView().
-     */
-    public function testRenderTwigView()
-    {
-        $res = renderTwigView("index.html");
-        $this->assertIsString($res);
-    }
-
-
 
     /**
      * Test the function url().
@@ -53,8 +38,6 @@ class FunctionsTest extends TestCase
         $this->assertIsString($res);
     }
 
-
-
     /**
      * Test the function getBaseUrl().
      */
@@ -64,8 +47,6 @@ class FunctionsTest extends TestCase
         $this->assertIsString($res);
     }
 
-
-
     /**
      * Test the function getCurrentUrl().
      */
@@ -74,8 +55,6 @@ class FunctionsTest extends TestCase
         $res = getCurrentUrl();
         $this->assertIsString($res);
     }
-
-
 
     /**
      * Test the function destroySession().
@@ -91,5 +70,18 @@ class FunctionsTest extends TestCase
 
         destroySession();
         $this->assertEmpty($_SESSION);
+    }
+
+    /**
+     * Verify that the function has the expected
+     * properties with both arguments.
+     */
+    public function testSumDiceValue()
+    {
+        $savedDices = array(1, 2, 2, 5);
+        $number = 2;
+
+        $res = sumDiceValue($savedDices, $number);
+        $this->assertEquals(4, $res);
     }
 }
