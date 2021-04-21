@@ -6,33 +6,19 @@ namespace Kimchi\Dice;
 
 use Kimchi\Dice\Dice;
 use Kimchi\Dice\Dicehand;
-use Kimchi\Dice\GraphicalDice;
 
-use function Mos\Functions\{
-    redirectTo,
-    renderView,
-    sendResponse,
-    url
-};
+use function Mos\Functions\renderView;
+use function Mos\Functions\url;
 
 /**
  * Class Game as a controller class
  */
 class Game
 {
-    private ?array $diceSession;
-    private int $lastRoll;
-    private int $playerTotal;
-    private ?array $botTotal;
-
     public function setDiceNumber(): void
     {
         if (isset($_POST['submit'])) {
             $_SESSION["number"] = (int)$_POST['number'] ?? null;
-        }
-
-        if ($_SESSION["number"] == null) {
-            redirectTo(url("/game21"));
         }
     }
 
@@ -41,13 +27,7 @@ class Game
         $diceHand = new Dicehand();
 
         if (isset($_SESSION["number"])) {
-            $number = $_SESSION["number"];
-        } else {
-            redirectTo(url("/game21"));
-        }
-
-        if (isset($number)) {
-            $diceHand->setNumber($number);
+            $diceHand->setNumber($_SESSION["number"]);
         }
 
         $diceHand->prepare();
@@ -57,61 +37,15 @@ class Game
 
         if (!isset($_SESSION["dicetotal"])) {
             $_SESSION["dicetotal"] = array_sum($_SESSION["dicehand"]);
-        } else {
+        } elseif (isset($_SESSION["dicetotal"])) {
             $_SESSION["dicetotal"] = array_sum($_SESSION["dicehand"]) + ($_SESSION["dicetotal"]);
         }
-    }
-
-    public function showResults(): array
-    {
-        $data = [
-            "header" => "Let's play 21",
-            "message" => "If you get 21 you win! If you get more than 21 you lose."
-        ];
-
-        if (isset($_SESSION["dicetotal"])) {
-            $diceSession = $_SESSION["dicetotal"];
-        }
-
-        if (isset($diceSession)) {
-            $data["sumDice"] = $diceSession;
-        } else {
-            $data["sumDice"] = 0;
-        }
-
-        $data["notice"] = "";
-
-        if (isset($diceSession) && $diceSession > 21) {
-            $data["notice"] .= "You lose!";
-        } elseif (isset($diceSession) && $diceSession == 21) {
-            $data["notice"] .= "You win!";
-        } else {
-            $data["notice"] .= "Keep rolling?";
-        }
-
-        if (isset($_SESSION["dicehand"])) {
-            $lastRoll = $_SESSION["dicehand"];
-        }
-
-        $noRoll = [0];
-
-        if (isset($lastRoll)) {
-            $data["lastRoll"] = $lastRoll;
-        } else {
-            $data["lastRoll"] = $noRoll;
-        }
-
-        return $data;
     }
 
     public function savePlayerTotal(): void
     {
         if (isset($_POST['submit'])) {
             $_SESSION["playertotal"] = (int)$_POST['playerdice'] ?? null;
-        }
-
-        if ($_SESSION["playertotal"] == null) {
-            redirectTo(url("/game21/game"));
         }
     }
 
@@ -123,13 +57,7 @@ class Game
         ];
 
         if (isset($_SESSION["playertotal"])) {
-            $playerTotal = $_SESSION["playertotal"];
-        }
-
-        if (isset($playerTotal)) {
-            $data["getPlayerTotal"] = $playerTotal;
-        } else {
-            redirectTo(url("/game21/game"));
+            $data["getPlayerTotal"] = $_SESSION["playertotal"];
         }
 
         return $data;
@@ -139,88 +67,18 @@ class Game
     {
         $botHand = new Dice();
 
-        if (isset($_SESSION["playertotal"])) {
-            $playerTotal = $_SESSION["playertotal"];
-        }
-
-        //Bot will roll until it has a higher number than player.
-        if (isset($playerTotal) && !isset($_SESSION["bottotal"])) {
+        //Bot will roll until it has a higher or equal number to player.
+        if (isset($_SESSION["playertotal"]) && !isset($_SESSION["bottotal"])) {
             $_SESSION["bottotal"] = $botHand->roll();
         }
 
-        while (isset($playerTotal) && $_SESSION["bottotal"] < $playerTotal) {
+        while (isset($_SESSION["playertotal"]) && $_SESSION["bottotal"] < $_SESSION["playertotal"]) {
             $botHand->roll();
 
             $_SESSION["bothand"] = $botHand->getLastRoll();
 
             $_SESSION["bottotal"] = $_SESSION["bothand"] + ($_SESSION["bottotal"]);
         }
-    }
-
-    public function showFinalResults(): array
-    {
-        $data = [
-            "header" => "Let's play 21",
-            "message" => "Final results!",
-        ];
-
-        if (isset($_SESSION["playertotal"])) {
-            $playerTotal = $_SESSION["playertotal"];
-        }
-
-        if (isset($playerTotal)) {
-            $data["getPlayerTotal"] = $playerTotal;
-        }
-
-        if (isset($_SESSION["bottotal"])) {
-            $botTotal = $_SESSION["bottotal"];
-        }
-
-        if (isset($botTotal)) {
-            $data["getBotTotal"] = $botTotal;
-        } else {
-            $data["getBotTotal"] = "There has been some error. Try again!";
-        }
-
-        $data["getFinalResults"] = "";
-
-        if (isset($botTotal) && isset($playerTotal) && $botTotal == $playerTotal) {
-            $data["getFinalResults"] .= "Bot wins!";
-        } elseif (isset($botTotal) && isset($playerTotal) && $botTotal > $playerTotal && $botTotal <= 21) {
-            $data["getFinalResults"] .= "Bot wins!";
-        } elseif (isset($playerTotal) && $playerTotal > 21) {
-            $data["getFinalResults"] .= "You're both losers.";
-        } elseif (isset($botTotal) && $botTotal > 21) {
-            $data["getFinalResults"] .= "You win!";
-        } elseif (isset($botTotal) && isset($playerTotal) && $botTotal < $playerTotal) {
-            $data["getFinalResults"] .= "You win!";
-        } elseif (isset($playerTotal) && $playerTotal == 21) {
-            $data["getFinalResults"] .= "You win!";
-        }
-
-        if (!isset($_SESSION["wins"]) && $data["getFinalResults"] == "You win!") {
-            $_SESSION["wins"] = 1;
-        } elseif (isset($_SESSION["wins"]) && $data["getFinalResults"] == "You win!") {
-            $_SESSION["wins"] += 1;
-        } elseif (!isset($_SESSION["loss"]) && $data["getFinalResults"] == "Bot wins!") {
-            $_SESSION["loss"] = 1;
-        } elseif (isset($_SESSION["loss"]) && $data["getFinalResults"] == "Bot wins!") {
-            $_SESSION["loss"] += 1;
-        }
-
-        if (isset($_SESSION["wins"])) {
-            $data["getWins"] = $_SESSION["wins"];
-        } else {
-            $data["getWins"] = 0;
-        }
-
-        if (isset($_SESSION["loss"])) {
-            $data["getLosses"] = $_SESSION["loss"];
-        } else {
-            $data["getLosses"] = 0;
-        }
-
-        return $data;
     }
 
     public function prepareGame(): void
