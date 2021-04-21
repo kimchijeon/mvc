@@ -7,13 +7,13 @@ namespace Kimchi\Controller;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
-use Kimchi\Dice\Game;
 
-use function Mos\Functions\{
-    destroySession,
-    renderView,
-    url
-};
+use Kimchi\Dice\Game;
+use Kimchi\Dice\GameResults;
+
+use function Mos\Functions\renderView;
+use function Mos\Functions\url;
+use function Mos\Functions\destroySession;
 
 /**
  * Controller for the Game 21 routes.
@@ -43,7 +43,7 @@ class Game21
     {
         $psr17Factory = new Psr17Factory();
 
-        $callable = new Game();
+        $callable = new GameResults();
         $data = $callable->showResults();
 
         $body = renderView("layout/game21.php", $data);
@@ -111,7 +111,7 @@ class Game21
     {
         $psr17Factory = new Psr17Factory();
 
-        $callable = new Game();
+        $callable = new GameResults();
         $data = $callable->showFinalResults();
 
         $body = renderView("layout/game21-results.php", $data);

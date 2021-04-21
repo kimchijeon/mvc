@@ -9,11 +9,9 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Kimchi\Dice\Yatzy;
 
-use function Mos\Functions\{
-    destroySession,
-    renderView,
-    url
-};
+use function Mos\Functions\renderView;
+use function Mos\Functions\url;
+use function Mos\Functions\destroySession;
 
 /**
  * Controller for Yatzy routes.
