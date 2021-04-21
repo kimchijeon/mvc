@@ -11,7 +11,7 @@ class Dicehand
 {
     use SaveDiceTrait;
 
-    private array $dices;
+    private $dices;
     private int $number;
 
     /**
