@@ -7,13 +7,9 @@ namespace Kimchi\Dice;
 use Kimchi\Dice\Dice;
 use Kimchi\Dice\Dicehand;
 
-use function Mos\Functions\{
-    redirectTo,
-    renderView,
-    sendResponse,
-    url,
-    sumDiceValue
-};
+use function Mos\Functions\renderView;
+use function Mos\Functions\url;
+use function Mos\Functions\sumDiceValue;
 
 /**
  * Class Yatzy
@@ -22,12 +18,8 @@ class Yatzy
 {
     public function prepareRound(): void
     {
-        if (isset($_POST['submit'])) {
-            $_SESSION["round"] = (int)$_POST['round'] ?? null;
-        }
-
-        if ($_SESSION["round"] == null) {
-            redirectTo(url("/yatzy"));
+        if (isset($_POST["submit"])) {
+            $_SESSION["round"] = (int)$_POST["round"] ?? null;
         }
 
         if (isset($_SESSION["restdices"])) {
