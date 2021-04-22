@@ -1,3 +1,0 @@
-C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\GameResults.php:54	The method showFinalResults() has a Cyclomatic Complexity of 26. The configured cyclomatic complexity threshold is 10.
-C:\Users\jenny\dbwebb-kurser\mvc\me\game\src\Dice\GameResults.php:54	The method showFinalResults() has an NPath complexity of 2016. The configured NPath complexity threshold is 200.
-C:\Users\jenny\dbwebb-kurser\mvc\me\game\test\Controller\ControllerYatzyGameTest.php:13	The class ControllerYatzyGameTest has 11 public methods. Consider refactoring ControllerYatzyGameTest to keep number of public methods under 10.
