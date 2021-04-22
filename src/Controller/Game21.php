@@ -7,7 +7,6 @@ namespace Kimchi\Controller;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
-
 use Kimchi\Dice\Game;
 use Kimchi\Dice\GameResults;
 
