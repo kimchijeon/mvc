@@ -24,7 +24,6 @@ class YatzyTest extends TestCase
     public function testYatzySetRound()
     {
         $yatzy = new Yatzy();
-        $this->assertInstanceOf("\Kimchi\Dice\Yatzy", $yatzy);
 
         $_POST["submit"] = "Start game!";
         $_POST["round"] = 1;
@@ -42,7 +41,6 @@ class YatzyTest extends TestCase
     public function testYatzyNullifyRestDices()
     {
         $yatzy = new Yatzy();
-        $this->assertInstanceOf("\Kimchi\Dice\Yatzy", $yatzy);
 
         $_SESSION["restdices"] = array(1, 1, 1);
 
@@ -57,7 +55,6 @@ class YatzyTest extends TestCase
     public function testYatzyShowRound()
     {
         $yatzy = new Yatzy();
-        $this->assertInstanceOf("\Kimchi\Dice\Yatzy", $yatzy);
 
         $_SESSION["round"] = 2;
 
@@ -74,7 +71,6 @@ class YatzyTest extends TestCase
     public function testYatzyFirstDiceRoll()
     {
         $yatzy = new Yatzy();
-        $this->assertInstanceOf("\Kimchi\Dice\Yatzy", $yatzy);
 
         $yatzy->firstDiceRoll();
 
@@ -89,7 +85,6 @@ class YatzyTest extends TestCase
     public function testYatzyAnotherDiceRoll()
     {
         $yatzy = new Yatzy();
-        $this->assertInstanceOf("\Kimchi\Dice\Yatzy", $yatzy);
 
         $_SESSION["wantedvalues"] = array(1, 3);
 
@@ -106,7 +101,6 @@ class YatzyTest extends TestCase
     public function testYatzyShowResults()
     {
         $yatzy = new Yatzy();
-        $this->assertInstanceOf("\Kimchi\Dice\Yatzy", $yatzy);
 
         $_SESSION["round"] = 2;
         $_SESSION["saveddices"] = [1, 2, 2, 3];
@@ -123,7 +117,6 @@ class YatzyTest extends TestCase
     public function testYatzyShowEndResultsSumDiceValue()
     {
         $yatzy = new Yatzy();
-        $this->assertInstanceOf("\Kimchi\Dice\Yatzy", $yatzy);
 
         $_SESSION["saveddices"] = array(1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6);
 
@@ -144,7 +137,6 @@ class YatzyTest extends TestCase
     public function testYatzyShowEndResultsSumDice()
     {
         $yatzy = new Yatzy();
-        $this->assertInstanceOf("\Kimchi\Dice\Yatzy", $yatzy);
 
         $_SESSION["saveddices"] = array(1, 2, 2, 5); //10
 

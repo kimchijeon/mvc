@@ -25,7 +25,6 @@ class DicehandTest extends TestCase
     public function testDicehandArrayDicesCount()
     {
         $diceHand = new Dicehand();
-        $this->assertInstanceOf("\Kimchi\Dice\Dicehand", $diceHand);
 
         $diceHand->setNumber(2);
         $diceHand->prepare();
@@ -43,7 +42,6 @@ class DicehandTest extends TestCase
     public function testDicehandArrayIntegers()
     {
         $diceHand = new Dicehand();
-        $this->assertInstanceOf("\Kimchi\Dice\Dicehand", $diceHand);
 
         $diceHand->setNumber(2);
         $diceHand->prepare();
@@ -60,7 +58,6 @@ class DicehandTest extends TestCase
     public function testDicehandArrayIntegerRange()
     {
         $diceHand = new Dicehand();
-        $this->assertInstanceOf("\Kimchi\Dice\Dicehand", $diceHand);
 
         $diceHand->setNumber(2);
         $diceHand->prepare();

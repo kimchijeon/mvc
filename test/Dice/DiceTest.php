@@ -25,7 +25,6 @@ class DiceTest extends TestCase
     public function testDiceRoll()
     {
         $dice = new Dice();
-        $this->assertInstanceOf("\Kimchi\Dice\Dice", $dice);
 
         $res = $dice->roll();
         $expLow = 1;
@@ -41,7 +40,6 @@ class DiceTest extends TestCase
     public function testDiceGetLastRoll()
     {
         $dice = new Dice();
-        $this->assertInstanceOf("\Kimchi\Dice\Dice", $dice);
 
         $exp = $dice->roll();
         $res = $dice->getLastRoll();
