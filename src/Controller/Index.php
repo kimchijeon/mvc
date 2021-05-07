@@ -18,12 +18,7 @@ class Index
     {
         $psr17Factory = new Psr17Factory();
 
-        $data = [
-            "header" => "Index page",
-            "message" => "Hello, this is the index page, rendered as a layout.",
-        ];
-
-        $body = renderView("layout/page.php", $data);
+        $body = renderView("layout/index.php");
 
         return $psr17Factory
             ->createResponse(200)
