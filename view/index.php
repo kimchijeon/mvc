@@ -3,9 +3,11 @@
 /**
  * Index page.
  */
+
 declare(strict_types=1);
 
 use function Mos\Functions\url;
+
 ?>
 
 <h1>Welcome to this page!</h1>
