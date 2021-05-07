@@ -31,7 +31,7 @@ class Game21
         $callable = new Game();
         $callable->prepareGame();
 
-        $body = renderView("layout/game21-index.php", $data);
+        $body = renderView("layout/game21/index.php", $data);
 
         return $psr17Factory
             ->createResponse(200)
@@ -45,7 +45,7 @@ class Game21
         $callable = new GameResults();
         $data = $callable->showResults();
 
-        $body = renderView("layout/game21.php", $data);
+        $body = renderView("layout/game21/game.php", $data);
 
         return $psr17Factory
             ->createResponse(200)
@@ -89,7 +89,7 @@ class Game21
         $callable = new Game();
         $data = $callable->prepareBotGame();
 
-        $body = renderView("layout/bot-game21.php", $data);
+        $body = renderView("layout/game21/bot.php", $data);
 
         return $psr17Factory
             ->createResponse(200)
@@ -113,7 +113,7 @@ class Game21
         $callable = new GameResults();
         $data = $callable->showFinalResults();
 
-        $body = renderView("layout/game21-results.php", $data);
+        $body = renderView("layout/game21/results.php", $data);
 
         return $psr17Factory
             ->createResponse(200)

@@ -28,7 +28,7 @@ class YatzyGame
             <p> If you get a sum of at least 63 you get a 50 point bonus!</p>",
         ];
 
-        $body = renderView("layout/yatzy-index.php", $data);
+        $body = renderView("layout/yatzy/index.php", $data);
 
         return $psr17Factory
             ->createResponse(200)
@@ -52,7 +52,7 @@ class YatzyGame
         $callable = new Yatzy();
         $data = $callable->showRound();
 
-        $body = renderView("layout/yatzy-game.php", $data);
+        $body = renderView("layout/yatzy/game.php", $data);
 
         return $psr17Factory
             ->createResponse(200)
@@ -76,7 +76,7 @@ class YatzyGame
         $callable = new Yatzy();
         $data = $callable->showResults();
 
-        $body = renderView("layout/yatzy-firstroll.php", $data);
+        $body = renderView("layout/yatzy/firstroll.php", $data);
 
         return $psr17Factory
             ->createResponse(200)
@@ -100,7 +100,7 @@ class YatzyGame
         $callable = new Yatzy();
         $data = $callable->showResults();
 
-        $body = renderView("layout/yatzy-secondroll.php", $data);
+        $body = renderView("layout/yatzy/secondroll.php", $data);
 
         return $psr17Factory
             ->createResponse(200)
@@ -124,7 +124,7 @@ class YatzyGame
         $callable = new Yatzy();
         $data = $callable->showResults();
 
-        $body = renderView("layout/yatzy-thirdroll.php", $data);
+        $body = renderView("layout/yatzy/thirdroll.php", $data);
 
         return $psr17Factory
             ->createResponse(200)
@@ -138,7 +138,7 @@ class YatzyGame
         $callable = new Yatzy();
         $data = $callable->showEndResults();
 
-        $body = renderView("layout/yatzy-round.php", $data);
+        $body = renderView("layout/yatzy/round.php", $data);
 
         return $psr17Factory
             ->createResponse(200)
