@@ -9,6 +9,7 @@ use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Kimchi\Dice\Game;
 use Kimchi\Dice\GameResults;
+use Kimchi\Dice\GameFinalResults;
 
 use function Mos\Functions\renderView;
 use function Mos\Functions\url;
@@ -110,8 +111,12 @@ class Game21
     {
         $psr17Factory = new Psr17Factory();
 
-        $callable = new GameResults();
-        $data = $callable->showFinalResults();
+        $callable = new GameFinalResults();
+        $totals = $callable->setTotals();
+        $results = $callable->showFinalResults();
+        $scoreboard = $callable->showScoreboard();
+
+        $data = $totals + $results + $scoreboard;
 
         $body = renderView("layout/game21/results.php", $data);
 

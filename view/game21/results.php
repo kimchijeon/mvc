@@ -18,7 +18,7 @@ $message = $message ?? null;
 <p>Your total: <?= $getPlayerTotal ?></p>
 <p>Bot total: <?= $getBotTotal ?></p>
 
-<p><?= $getFinalResults ?></p>
+<p><?= $getResultMessage ?></p>
 
 <h2>Scoreboard</h2>
 <p>Total rounds: <?= $getWins + $getLosses?></p>
