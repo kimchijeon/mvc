@@ -1,0 +1,2 @@
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\test\Controller\ControllerYatzyGameTest.php:13	The class ControllerYatzyGameTest has 11 public methods. Consider refactoring ControllerYatzyGameTest to keep number of public methods under 10.
+C:\Users\jenny\dbwebb-kurser\mvc\me\game\test\Dice\GameFinalResultsTest.php:123	Avoid unused local variables such as '$message'.
