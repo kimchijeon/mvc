@@ -119,8 +119,7 @@ class GameFinalResultsTest extends TestCase
         $this->assertInstanceOf("\Kimchi\Dice\GameFinalResults", $game);
 
         $_SESSION["playertotal"] = 21;
-        $data = $game->showFinalResults();
-        $message = $data["getResultMessage"];
+        $game->showFinalResults();
 
         $_SESSION["win"] = 1;
         $game->showScoreboard();
