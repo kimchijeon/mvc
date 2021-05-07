@@ -1,4 +1,6 @@
 # MVC Weekly Assignments
+[![Build Status](https://travis-ci.com/kimchijeon/mvc.svg?branch=main)](https://travis-ci.com/github/kimchijeon/mvc)
+
 This is an on-going project that consist of weekly assignments for course **mvc** during the Spring semester of 2021.
 
 ## Assignment Descriptions
