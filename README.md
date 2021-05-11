@@ -1,6 +1,10 @@
 # MVC Weekly Assignments
 [![Build Status](https://travis-ci.com/kimchijeon/mvc.svg?branch=main)](https://travis-ci.com/github/kimchijeon/mvc)
 
+[![Build Status](https://scrutinizer-ci.com/g/kimchijeon/mvc/badges/build.png?b=main)](https://scrutinizer-ci.com/g/kimchijeon/mvc/build-status/main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kimchijeon/mvc/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/kimchijeon/mvc/?branch=main)
+[![Code Coverage](https://scrutinizer-ci.com/g/kimchijeon/mvc/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/kimchijeon/mvc/?branch=main)
+
 This is an on-going project that consist of weekly assignments for course **mvc** during the Spring semester of 2021.
 
 ## Assignment Descriptions
